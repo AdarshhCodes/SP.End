@@ -50,7 +50,7 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
         <div className="flex flex-col h-full">
           <div className="p-6 border-b border-gray-100">
             <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">
-              SmartSpend
+              SP.End
             </h1>
             <p className="text-sm text-gray-500 mt-1">Spend smart, save more</p>
           </div>
