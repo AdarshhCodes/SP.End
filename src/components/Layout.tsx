@@ -32,7 +32,7 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
     <div className="min-h-screen bg-gradient-to-br from-teal-50 via-blue-50 to-cyan-50">
       <div className="fixed top-0 left-0 right-0 bg-white border-b border-gray-200 z-30 lg:hidden">
         <div className="flex items-center justify-between px-4 py-4">
-          <h1 className="text-xl font-bold text-gray-800">SmartSpend</h1>
+          <h1 className="text-xl font-bold text-gray-800">SP.End</h1>
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 rounded-lg hover:bg-gray-100 transition"
