@@ -40,7 +40,7 @@ export default function Auth() {
             <div className="bg-gradient-to-br from-teal-500 to-blue-600 p-4 rounded-2xl mb-4">
               <Wallet className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold text-gray-800">SmartSpend</h1>
+            <h1 className="text-3xl font-bold text-gray-800">SP.End</h1>
             <p className="text-gray-500 mt-2">Mindful spending, better savings</p>
           </div>
 
