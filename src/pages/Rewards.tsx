@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase, Badge, Expense } from '../lib/supabase';
 import { checkBadgeEligibility } from '../utils/insightEngine';
-import { Award, Trophy, Star, Zap, TrendingUp, Target } from 'lucide-react';
+import { Award, Trophy, Star, Zap, TrendingUp, Target, Download } from 'lucide-react';
+import Certificate from '../components/Certificate';
 
 const badgeIcons: Record<string, any> = {
   budget_keeper: Target,
@@ -16,6 +17,21 @@ const badgeColors: Record<string, string> = {
   smart_spender: 'from-blue-400 to-cyan-500',
   tracking_champion: 'from-yellow-400 to-orange-500',
   savings_streak: 'from-purple-400 to-pink-500',
+  saver_of_week: 'from-teal-400 to-cyan-500',
+  saver_of_month: 'from-blue-400 to-purple-500',
+  super_saver_week: 'from-orange-400 to-red-500',
+  super_saver_month: 'from-pink-400 to-purple-600',
+};
+
+const badgeDescriptions: Record<string, string> = {
+  budget_keeper: 'Stayed within monthly budget',
+  smart_spender: 'Prioritized needs over wants',
+  tracking_champion: 'Logged 20+ expenses',
+  savings_streak: 'Consistent savings habit',
+  saver_of_week: 'Reduced spending compared to last week',
+  saver_of_month: 'Reduced spending compared to last month',
+  super_saver_week: 'Reduced spending by 20%+ this week',
+  super_saver_month: 'Reduced spending by 20%+ this month',
 };
 
 export default function Rewards() {
@@ -24,6 +40,8 @@ export default function Rewards() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [loading, setLoading] = useState(true);
   const [points, setPoints] = useState(0);
+  const [selectedBadge, setSelectedBadge] = useState<Badge | null>(null);
+  const [showCertificate, setShowCertificate] = useState(false);
 
   useEffect(() => {
     if (user) {
@@ -231,8 +249,18 @@ export default function Rewards() {
                   <p className="text-sm text-gray-500 text-center mt-2">
                     Earned {new Date(badge.earned_at).toLocaleDateString()}
                   </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100">
+                  <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
                     <p className="text-center text-teal-600 font-semibold">+100 points</p>
+                    <button
+                      onClick={() => {
+                        setSelectedBadge(badge);
+                        setShowCertificate(true);
+                      }}
+                      className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg hover:from-teal-600 hover:to-blue-700 transition text-sm"
+                    >
+                      <Download className="w-4 h-4" />
+                      <span>Get Certificate</span>
+                    </button>
                   </div>
                 </div>
               );
@@ -240,6 +268,19 @@ export default function Rewards() {
           </div>
         )}
       </div>
+
+      {showCertificate && selectedBadge && profile && (
+        <Certificate
+          userName={profile.name}
+          badgeName={selectedBadge.badge_name}
+          badgeDescription={badgeDescriptions[selectedBadge.badge_type] || 'Achievement unlocked'}
+          earnedDate={selectedBadge.earned_at}
+          onClose={() => {
+            setShowCertificate(false);
+            setSelectedBadge(null);
+          }}
+        />
+      )}
 
       <div>
         <h2 className="text-2xl font-bold text-gray-800 mb-6">Available Badges</h2>

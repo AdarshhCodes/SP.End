@@ -4,6 +4,7 @@ import Auth from './pages/Auth';
 import Dashboard from './pages/Dashboard';
 import AddExpense from './pages/AddExpense';
 import History from './pages/History';
+import Insights from './pages/Insights';
 import Goals from './pages/Goals';
 import Rewards from './pages/Rewards';
 import Layout from './components/Layout';
@@ -32,6 +33,8 @@ function AppContent() {
         return <AddExpense />;
       case 'history':
         return <History />;
+      case 'insights':
+        return <Insights />;
       case 'goals':
         return <Goals />;
       case 'rewards':

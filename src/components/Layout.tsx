@@ -1,6 +1,6 @@
 import { ReactNode, useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { LayoutDashboard, Plus, History, Target, Menu, X, LogOut, User, Award } from 'lucide-react';
+import { LayoutDashboard, Plus, History, Target, Menu, X, LogOut, User, Award, TrendingUp } from 'lucide-react';
 
 type LayoutProps = {
   children: ReactNode;
@@ -16,6 +16,7 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
     { id: 'add-expense', label: 'Add Expense', icon: Plus },
     { id: 'history', label: 'History', icon: History },
+    { id: 'insights', label: 'Insights', icon: TrendingUp },
     { id: 'goals', label: 'Goals', icon: Target },
     { id: 'rewards', label: 'Rewards', icon: Award },
   ];

@@ -65,3 +65,24 @@ export type SpendingInsight = {
   insights_data: Record<string, any>;
   created_at: string;
 };
+
+export type SpendingComparison = {
+  id: string;
+  user_id: string;
+  period_type: 'week' | 'month';
+  period_start: string;
+  period_end: string;
+  total_spent: number;
+  category_breakdown: Record<string, number>;
+  created_at: string;
+};
+
+export type Certificate = {
+  id: string;
+  user_id: string;
+  badge_id: string | null;
+  certificate_type: string;
+  issued_date: string;
+  certificate_data: Record<string, any>;
+  created_at: string;
+};
