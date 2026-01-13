@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl shadow-gray-200/50;
+  }
+
+  .gradient-card-pink {
+    @apply bg-gradient-to-br from-[#FFB7B7] to-[#FF92A5] text-white;
+  }
+
+  .gradient-card-blue {
+    @apply bg-gradient-to-br from-[#A2D2FF] to-[#70BCF2] text-white;
+  }
+
+  .gradient-card-orange {
+    @apply bg-gradient-to-br from-[#FFD8A8] to-[#FFB347] text-white;
+  }
+
+  .dashboard-bg {
+    @apply bg-[#F4F7FE] min-h-screen text-[#1B2559];
+  }
+}
+
+/* Custom styles for Recharts Tooltip */
+.recharts-default-tooltip {
+  @apply !bg-white/90 !backdrop-blur-md !border-none !rounded-xl !shadow-lg !p-4 !font-sans;
+}
+
