@@ -12,15 +12,17 @@ import {
   Target,
   Lightbulb,
   Award,
-  Search,
-  ChevronDown,
   MoreHorizontal,
   Clock,
   ArrowUpRight,
 } from 'lucide-react';
 import SpendingChart from '../components/SpendingChart';
 
-export default function Dashboard() {
+interface DashboardProps {
+  onNavigate?: (page: string) => void;
+}
+
+export default function Dashboard({ onNavigate }: DashboardProps) {
   const { user, profile } = useAuth();
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [nudges, setNudges] = useState<Nudge[]>([]);
@@ -149,230 +151,221 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="dashboard-bg p-4 md:p-8">
-      <div className="max-w-[1600px] mx-auto">
-        {/* Header */}
-        <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-          <div>
-            <h1 className="text-2xl font-bold">Welcome, {profile?.name || 'User'}</h1>
-            <p className="text-gray-400 text-sm">Your personal budget overview</p>
-          </div>
-          <div className="flex items-center gap-4">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search"
-                className="bg-white/50 backdrop-blur-sm border-none rounded-full py-2 pl-10 pr-4 w-64 focus:ring-2 focus:ring-teal-500 transition-all"
-              />
-            </div>
-            <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center shadow-sm border border-gray-100">
-              <ChevronDown className="w-4 h-4" />
+    <div className="relative z-10 p-4 md:p-8">
+      {/* Header */}
+      <header className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
+        <div>
+          <h1 className="text-2xl font-bold dark:text-white text-slate-900 transition-colors">Welcome, {profile?.name || 'User'}</h1>
+          <p className="dark:text-gray-400 text-slate-500 text-sm transition-colors">Your personal budget overview</p>
+        </div>
+      </header>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-8">
+        {/* Profile Card */}
+        <div className="glass-card rounded-[32px] p-8 flex flex-col items-center">
+          <div className="flex justify-end w-full">
+            <button className="text-gray-600 hover:text-gray-400 transition-colors">
+              <MoreHorizontal className="w-5 h-5" />
             </button>
           </div>
-        </header>
+          <div className="relative mb-6">
+            <div className="w-24 h-24 rounded-full border-4 border-emerald-500/30 p-1">
+              <img
+                src={`https://ui-avatars.com/api/?name=${profile?.name}&background=random`}
+                className="w-full h-full rounded-full object-cover"
+                alt="Profile"
+              />
+            </div>
+            <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-emerald-500 rounded-full flex items-center justify-center border-2 border-[#1a231e]">
+              <Award className="w-3 h-3 text-black font-bold" />
+            </div>
+          </div>
+          <h3 className="text-xl font-bold mb-1 dark:text-white text-slate-900">{profile?.name || 'Crystal'}</h3>
+          <p className="text-emerald-500/80 text-xs font-semibold uppercase tracking-wider mb-6">Smart Spender</p>
+          <div className="flex items-center gap-8 border-t border-slate-200 dark:border-white/5 pt-6 w-full justify-center">
+            <div className="text-center">
+              <p className="text-lg font-bold dark:text-white text-slate-900">{badges.length}</p>
+              <p className="text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-widest">Badges</p>
+            </div>
+            <div className="text-center">
+              <p className="text-lg font-bold dark:text-white text-slate-900">{goals.length}</p>
+              <p className="text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-widest">Goals</p>
+            </div>
+            <div className="text-center">
+              <p className="text-lg font-bold dark:text-white text-slate-900">{nudges.length}</p>
+              <p className="text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-widest">Nudges</p>
+            </div>
+          </div>
+        </div>
 
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
-          {/* Main Content Area */}
-          <div className="xl:col-span-9 space-y-8">
-            {/* Top Cards Row */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* Profile Card */}
-              <div className="glass-card rounded-[32px] p-8 flex flex-col items-center">
-                <div className="flex justify-end w-full">
-                  <button className="text-gray-300 hover:text-gray-500 transition-colors">
-                    <MoreHorizontal className="w-5 h-5" />
-                  </button>
-                </div>
-                <div className="relative mb-6">
-                  <div className="w-24 h-24 rounded-full border-4 border-red-400 p-1">
-                    <img
-                      src={`https://ui-avatars.com/api/?name=${profile?.name}&background=random`}
-                      className="w-full h-full rounded-full object-cover"
-                      alt="Profile"
-                    />
-                  </div>
-                  <div className="absolute -bottom-1 -right-1 w-6 h-6 bg-black rounded-full flex items-center justify-center border-2 border-white">
-                    <Award className="w-3 h-3 text-white" />
-                  </div>
-                </div>
-                <h3 className="text-xl font-bold mb-1">{profile?.name || 'Crystal'}</h3>
-                <p className="text-gray-400 text-xs mb-6">Smart Spender</p>
-                <div className="flex items-center gap-8 border-t border-gray-50 pt-6 w-full justify-center">
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{badges.length}</p>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest">Badges</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{goals.length}</p>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest">Goals</p>
-                  </div>
-                  <div className="text-center">
-                    <p className="text-lg font-bold">{nudges.length}</p>
-                    <p className="text-[10px] text-gray-400 uppercase tracking-widest">Nudges</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Total Spent Card */}
-              <div className="gradient-card-pink rounded-[32px] p-8 relative overflow-hidden group">
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-8">
-                    <p className="font-semibold text-lg opacity-90">Total Monthly Spending</p>
-                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
-                      <Target className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <div className="space-y-1 mb-8">
-                    <p className="text-4xl font-extrabold">${totalSpent.toFixed(2)}</p>
-                    <p className="text-sm opacity-80">Avg. Daily: ${(totalSpent / 30).toFixed(2)}</p>
-                  </div>
-                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider opacity-90">Budget Efficiency</p>
-                      <p className="text-lg font-bold">{((totalSpent / (profile?.monthly_budget || 1)) * 100).toFixed(0)}%</p>
-                    </div>
-                    <div className="flex -space-x-2">
-                      {/* Avatats/Icons placeholder */}
-                      <div className="w-8 h-8 rounded-full bg-white/30 border border-white/50" />
-                      <div className="w-8 h-8 rounded-full bg-white/30 border border-white/50" />
-                      <div className="w-8 h-8 rounded-full bg-white/30 border border-white/50" />
-                    </div>
-                  </div>
-                </div>
-                <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-12 translate-x-12 blur-2xl group-hover:scale-150 transition-transform duration-700" />
-              </div>
-
-              {/* Smart Score Card */}
-              <div className="gradient-card-blue rounded-[32px] p-8 relative overflow-hidden group">
-                <div className="relative z-10">
-                  <div className="flex items-center justify-between mb-8">
-                    <p className="font-semibold text-lg opacity-90">Smart Spend Score</p>
-                    <div className="w-10 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
-                      <Clock className="w-5 h-5" />
-                    </div>
-                  </div>
-                  <div className="space-y-1 mb-8">
-                    <p className="text-4xl font-extrabold">{smartSpendScore}%</p>
-                    <p className="text-sm opacity-80">Financial Health Index</p>
-                  </div>
-                  <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between">
-                    <div>
-                      <p className="text-xs font-bold uppercase tracking-wider opacity-90">Score Status</p>
-                      <p className="text-lg font-bold">Stable Trend</p>
-                    </div>
-                    <TrendingUp className="w-6 h-6" />
-                  </div>
-                </div>
-                <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full translate-y-12 -translate-x-12 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+        {/* Total Spent Card */}
+        <div className={`${totalSpent > (profile?.monthly_budget || 0) ? 'gradient-card-red' : 'gradient-card-green'} rounded-[32px] p-8 relative overflow-hidden group shadow-2xl`}>
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-8">
+              <p className="font-semibold text-lg opacity-90">Total Monthly Spending</p>
+              <div className="w-8 h-10 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-md">
+                <Target className="w-5 h-5" />
               </div>
             </div>
+            <div className="space-y-1 mb-8">
+              <p className="text-4xl font-extrabold">${totalSpent.toFixed(2)}</p>
+              <p className="text-sm opacity-80 font-medium">Avg. Daily: ${(totalSpent / 30).toFixed(2)}</p>
+            </div>
+            <div className="bg-white/20 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between border border-white/10">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest opacity-90">Budget Utilization</p>
+                <p className="text-lg font-bold">{((totalSpent / (profile?.monthly_budget || 1)) * 100).toFixed(0)}%</p>
+              </div>
+              <div className="flex -space-x-2">
+                <div className="w-8 h-8 rounded-full bg-white/20 border border-white/30 backdrop-blur-sm" />
+                <div className="w-8 h-8 rounded-full bg-white/20 border border-white/30 backdrop-blur-sm" />
+              </div>
+            </div>
+          </div>
+          <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -translate-y-12 translate-x-12 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+        </div>
 
-            {/* Chart Section */}
-            <div className="glass-card rounded-[32px] p-8">
-              <div className="flex items-center justify-between mb-8">
-                <div>
-                  <h2 className="text-xl font-bold">Spending Trends</h2>
-                  <p className="text-gray-400 text-sm">Real-time expenditure analytics</p>
+        {/* Smart Score Card */}
+        <div className="gradient-card-dark rounded-[32px] p-8 relative overflow-hidden group shadow-2xl">
+          <div className="relative z-10">
+            <div className="flex items-center justify-between mb-8">
+              <p className="font-semibold text-lg opacity-90 text-emerald-400">Smart Spend Score</p>
+              <div className="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center backdrop-blur-md border border-emerald-500/20">
+                <Clock className="w-5 h-5 text-emerald-500" />
+              </div>
+            </div>
+            <div className="space-y-1 mb-8">
+              <p className={`text-4xl font-extrabold ${smartSpendScore < 60 ? 'text-red-400' : 'text-white'}`}>{smartSpendScore}%</p>
+              <p className="text-sm dark:opacity-60 opacity-80 font-medium">Financial Health Index</p>
+            </div>
+            <div className="bg-slate-200/50 dark:bg-white/5 backdrop-blur-md rounded-2xl p-4 flex items-center justify-between border border-slate-200 dark:border-white/5">
+              <div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-gray-500">Score Status</p>
+                <p className={`text-lg font-bold ${smartSpendScore < 60 ? 'text-red-400' : 'text-emerald-500'}`}>
+                  {smartSpendScore < 40 ? 'Critical' : smartSpendScore < 70 ? 'Needs Attention' : 'Healthy'}
+                </p>
+              </div>
+              <TrendingUp className={`w-6 h-6 ${smartSpendScore < 60 ? 'text-red-400' : 'text-emerald-500'}`} />
+            </div>
+          </div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-emerald-500/5 rounded-full translate-y-12 -translate-x-12 blur-2xl group-hover:scale-150 transition-transform duration-700" />
+        </div>
+
+        {/* Recent Activity Card */}
+        <div className="glass-card rounded-[32px] p-8 flex flex-col h-full">
+          <div className="flex items-center justify-between mb-6">
+            <h3 className="font-bold text-lg dark:text-white text-slate-900">Recent Expenses</h3>
+          </div>
+          <div className="space-y-6 flex-1">
+            {expenses.slice(0, 2).map((expense) => (
+              <div key={expense.id} className="flex items-center gap-4 group">
+                <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getCategoryColor(expense.category)} flex items-center justify-center shrink-0 shadow-lg`}>
+                  <span className="text-white text-xs font-bold">{expense.category[0]}</span>
                 </div>
-                <div className="flex bg-gray-50 rounded-xl p-1">
-                  <button
-                    onClick={() => setTimeRange('week')}
-                    className={`px-4 py-2 text-xs font-bold transition-all duration-300 ${timeRange === 'week'
-                        ? 'bg-white shadow-sm rounded-lg text-gray-800'
-                        : 'text-gray-400 hover:text-gray-600'
-                      }`}
-                  >
-                    Week
-                  </button>
-                  <button
-                    onClick={() => setTimeRange('month')}
-                    className={`px-4 py-2 text-xs font-bold transition-all duration-300 ${timeRange === 'month'
-                        ? 'bg-white shadow-sm rounded-lg text-gray-800'
-                        : 'text-gray-400 hover:text-gray-600'
-                      }`}
-                  >
-                    Month
-                  </button>
+                <div className="min-w-0 flex-1">
+                  <p className="font-bold text-sm truncate dark:text-white text-slate-900 group-hover:text-emerald-500 transition-colors uppercase tracking-tight">{expense.item_name}</p>
+                  <p className="text-[10px] text-slate-500 dark:text-gray-500 uppercase tracking-widest">{expense.category}</p>
+                </div>
+                <div className="text-right">
+                  <p className="font-bold text-sm dark:text-white text-slate-900">${expense.amount}</p>
+                  <p className="text-[10px] text-slate-500 dark:text-gray-500">{new Date(expense.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
                 </div>
               </div>
+            ))}
+            {expenses.length === 0 && (
+              <p className="text-gray-500 text-xs text-center py-4">No recent expenses logged.</p>
+            )}
+          </div>
+          <button
+            onClick={() => onNavigate?.('history')}
+            className="w-full mt-6 py-3 text-[10px] font-bold text-emerald-500/80 hover:text-emerald-400 transition-colors uppercase tracking-widest border border-emerald-500/20 rounded-xl hover:bg-emerald-500/5"
+          >
+            See all transactions
+          </button>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8">
+        {/* Main Content Area */}
+        <div className="xl:col-span-9">
+
+          {/* Chart Section */}
+          <div className="glass-card rounded-[32px] p-8 h-full flex flex-col">
+            <div className="flex items-center justify-between mb-8 shrink-0">
+              <div>
+                <h2 className="text-xl font-bold dark:text-white text-slate-900">Spending Trends</h2>
+                <p className="dark:text-gray-500 text-slate-500 text-sm">Real-time expenditure analytics</p>
+              </div>
+              <div className="flex bg-slate-200/50 dark:bg-white/5 rounded-xl p-1 border border-slate-200 dark:border-white/5">
+                <button
+                  onClick={() => setTimeRange('week')}
+                  className={`px-4 py-2 text-xs font-bold transition-all duration-300 ${timeRange === 'week'
+                    ? 'bg-emerald-500 shadow-lg shadow-emerald-500/20 rounded-lg text-black'
+                    : 'text-gray-500 hover:text-gray-300'
+                    }`}
+                >
+                  Week
+                </button>
+                <button
+                  onClick={() => setTimeRange('month')}
+                  className={`px-4 py-2 text-xs font-bold transition-all duration-300 ${timeRange === 'month'
+                    ? 'bg-emerald-500 shadow-lg shadow-emerald-500/20 rounded-lg text-black'
+                    : 'text-gray-500 hover:text-gray-300'
+                    }`}
+                >
+                  Month
+                </button>
+              </div>
+            </div>
+            <div className="flex-1 min-h-[350px]">
               <SpendingChart data={trendData} />
             </div>
           </div>
+        </div>
 
-          {/* Sidebar Area */}
-          <div className="xl:col-span-3 space-y-8">
-            {/* Recent Activity */}
-            <div className="glass-card rounded-[32px] p-6">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="font-bold text-lg">Recent Expenses</h3>
-                <button className="w-8 h-8 rounded-full bg-gray-50 flex items-center justify-center">
-                  <ChevronDown className="w-4 h-4" />
-                </button>
-              </div>
-              <div className="space-y-6">
-                {expenses.slice(0, 4).map((expense) => (
-                  <div key={expense.id} className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${getCategoryColor(expense.category)} flex items-center justify-center shrink-0`}>
-                      <span className="text-white text-xs font-bold">{expense.category[0]}</span>
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className="font-bold text-sm truncate">{expense.item_name}</p>
-                      <p className="text-[10px] text-gray-400 uppercase tracking-wider">{expense.category}</p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold text-sm">${expense.amount}</p>
-                      <p className="text-[10px] text-gray-400">{new Date(expense.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>
+        {/* Sidebar Area */}
+        <div className="xl:col-span-3 flex flex-col gap-8">
+          {/* Category Progress */}
+          <div className="glass-card rounded-[32px] p-6">
+            <h3 className="font-bold text-lg mb-6 dark:text-white text-slate-900">Expense Breakdown</h3>
+            <div className="space-y-6">
+              {categoryStats.map((stat) => (
+                <div key={stat.category} className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-bold dark:text-white text-slate-900">{stat.category}</span>
+                    <div className="flex items-center gap-1">
+                      <span className={`text-xs ${stat.percentage > 40 ? 'text-red-400 font-bold' : 'text-slate-500 dark:text-gray-500'}`}>{stat.percentage.toFixed(0)}%</span>
+                      <ArrowUpRight className={`w-3 h-3 ${stat.percentage > 40 ? 'text-red-400' : 'text-emerald-500'}`} />
                     </div>
                   </div>
-                ))}
-                {expenses.length === 0 && (
-                  <p className="text-gray-400 text-xs text-center py-4">No recent expenses logged.</p>
-                )}
-              </div>
-              <button className="w-full mt-6 py-3 text-xs font-bold text-gray-400 hover:text-teal-500 transition-colors uppercase tracking-widest">See all transactions</button>
-            </div>
-
-            {/* Category Progress */}
-            <div className="glass-card rounded-[32px] p-6">
-              <h3 className="font-bold text-lg mb-6">Expense Breakdown</h3>
-              <div className="space-y-6">
-                {categoryStats.map((stat) => (
-                  <div key={stat.category} className="space-y-2">
-                    <div className="flex items-center justify-between">
-                      <span className="text-sm font-bold">{stat.category}</span>
-                      <div className="flex items-center gap-1">
-                        <span className="text-xs text-gray-400">{stat.percentage.toFixed(0)}%</span>
-                        <ArrowUpRight className="w-3 h-3 text-teal-500" />
-                      </div>
-                    </div>
-                    <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full bg-gradient-to-r ${getCategoryColor(stat.category)} rounded-full`}
-                        style={{ width: `${stat.percentage}%` }}
-                      />
-                    </div>
+                  <div className="h-2 w-full bg-slate-200 dark:bg-white/5 rounded-full overflow-hidden">
+                    <div
+                      className={`h-full bg-gradient-to-r ${getCategoryColor(stat.category)} rounded-full`}
+                      style={{ width: `${stat.percentage}%` }}
+                    />
                   </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Smart Nudge */}
-            <div className="bg-teal-900 rounded-[32px] p-6 text-white relative overflow-hidden">
-              <div className="relative z-10">
-                <div className="w-12 h-12 bg-white/20 rounded-2xl flex items-center justify-center mb-4 backdrop-blur-md">
-                  <Lightbulb className="w-6 h-6 text-yellow-300" />
                 </div>
-                <h3 className="font-bold mb-2 text-lg">Smart Insight</h3>
-                <p className="text-xs text-teal-100 leading-relaxed mb-4">
-                  {nudges[0]?.message || "Looks like you're on track! Keep up the smart spending habits."}
-                </p>
-                <button className="text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors underline underline-offset-4">
-                  Read full report
-                </button>
-              </div>
-              <div className="absolute top-0 right-0 w-32 h-32 bg-teal-800 rounded-full -translate-y-12 translate-x-12 blur-3xl opacity-50" />
+              ))}
             </div>
+          </div>
+
+          {/* Smart Nudge */}
+          <div className="flex-1 bg-gradient-to-br from-emerald-50 to-emerald-100 dark:from-[#062d24] dark:to-[#041a16] rounded-[32px] p-8 relative overflow-hidden border border-emerald-200 dark:border-emerald-500/10 shadow-2xl transition-all duration-500 flex flex-col justify-center">
+            <div className="relative z-10">
+              <div className="w-12 h-12 bg-white/50 dark:bg-emerald-500/10 rounded-2xl flex items-center justify-center mb-6 backdrop-blur-md border border-emerald-200 dark:border-emerald-500/20">
+                <Lightbulb className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+              </div>
+              <h3 className="font-bold mb-3 text-xl dark:text-white text-emerald-900">Smart Insight</h3>
+              <p className="text-sm text-emerald-800/80 dark:text-emerald-100/70 leading-relaxed mb-6 font-medium">
+                {nudges[0]?.message || "Looks like you're on track! Keep up the smart spending habits."}
+              </p>
+              <button className="text-[10px] font-bold uppercase tracking-widest text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 transition-colors underline underline-offset-8 decoration-emerald-500/30">
+                Read full report
+              </button>
+            </div>
+            {/* Ambient Glows */}
+            <div className="absolute -top-12 -right-12 w-48 h-48 bg-emerald-500/10 rounded-full blur-3xl" />
+            <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-emerald-400/5 rounded-full blur-3xl" />
           </div>
         </div>
       </div>

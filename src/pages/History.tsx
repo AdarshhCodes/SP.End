@@ -102,128 +102,131 @@ export default function History() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto p-4 md:p-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Spending History</h1>
-        <p className="text-gray-500 mt-1">
+        <h1 className="text-3xl font-bold dark:text-white text-slate-900 transition-colors">Spending History</h1>
+        <p className="dark:text-gray-500 text-slate-500 mt-1 transition-colors">
           View and manage all your tracked expenses
         </p>
       </div>
 
-      <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 mb-6">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+      <div className="glass-card rounded-[32px] p-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="relative group">
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-emerald-500 transition-colors" />
             <input
               type="text"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition"
-              placeholder="Search expenses..."
+              className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400"
+              placeholder="Search history..."
             />
           </div>
 
-          <div className="relative">
-            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+          <div className="relative group">
+            <Filter className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 group-focus-within:text-emerald-500 transition-colors" />
             <select
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
-              className="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:border-transparent transition appearance-none"
+              className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 appearance-none cursor-pointer"
             >
-              <option value="All">All Categories</option>
-              <option value="Food">Food</option>
-              <option value="Shopping">Shopping</option>
-              <option value="Travel">Travel</option>
-              <option value="Bills">Bills</option>
-              <option value="Other">Other</option>
+              <option value="All" className="dark:bg-[#1a231e] bg-white">All Categories</option>
+              <option value="Food" className="dark:bg-[#1a231e] bg-white">Food</option>
+              <option value="Shopping" className="dark:bg-[#1a231e] bg-white">Shopping</option>
+              <option value="Travel" className="dark:bg-[#1a231e] bg-white">Travel</option>
+              <option value="Bills" className="dark:bg-[#1a231e] bg-white">Bills</option>
+              <option value="Other" className="dark:bg-[#1a231e] bg-white">Other</option>
             </select>
           </div>
 
-          <div className="flex space-x-2">
+          <div className="flex gap-3">
             <button
               onClick={() => toggleSort('date')}
-              className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border-2 transition ${
-                sortBy === 'date'
-                  ? 'border-teal-500 bg-teal-50 text-teal-700'
-                  : 'border-gray-200 text-gray-600 hover:border-gray-300'
-              }`}
+              className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-2xl border transition-all duration-300 ${sortBy === 'date'
+                ? 'bg-emerald-500 border-emerald-500 text-black font-bold shadow-lg shadow-emerald-500/20'
+                : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/5 text-slate-500 dark:text-gray-500 hover:text-emerald-500 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
+                }`}
             >
-              <span className="text-sm font-medium">Date</span>
+              <span className="text-xs uppercase tracking-widest">Date</span>
               <ArrowUpDown className="w-4 h-4" />
             </button>
             <button
               onClick={() => toggleSort('amount')}
-              className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-xl border-2 transition ${
-                sortBy === 'amount'
-                  ? 'border-teal-500 bg-teal-50 text-teal-700'
-                  : 'border-gray-200 text-gray-600 hover:border-gray-300'
-              }`}
+              className={`flex-1 flex items-center justify-center space-x-2 px-4 py-3 rounded-2xl border transition-all duration-300 ${sortBy === 'amount'
+                ? 'bg-emerald-500 border-emerald-500 text-black font-bold shadow-lg shadow-emerald-500/20'
+                : 'bg-slate-100 dark:bg-white/5 border-slate-200 dark:border-white/5 text-slate-500 dark:text-gray-500 hover:text-emerald-500 dark:hover:text-white hover:bg-emerald-50 dark:hover:bg-white/10'
+                }`}
             >
-              <span className="text-sm font-medium">Amount</span>
+              <span className="text-xs uppercase tracking-widest">Amount</span>
               <ArrowUpDown className="w-4 h-4" />
             </button>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-between">
-          <p className="text-sm text-gray-600">
-            Showing {filteredExpenses.length} of {expenses.length} expenses
+        <div className="mt-8 flex items-center justify-between border-t border-slate-200 dark:border-white/5 pt-6">
+          <p className="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+            Showing {filteredExpenses.length} entries
           </p>
-          <p className="text-sm font-semibold text-gray-800">
-            Total: ${totalFiltered.toFixed(2)}
-          </p>
+          <div className="flex items-center gap-4">
+            <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-right">Total Aggregate</span>
+            <p className="text-2xl font-black text-emerald-400">
+              ${totalFiltered.toFixed(2)}
+            </p>
+          </div>
         </div>
       </div>
 
       {filteredExpenses.length === 0 ? (
-        <div className="bg-white rounded-2xl shadow-lg p-12 border border-gray-100 text-center">
-          <p className="text-gray-500">No expenses found matching your filters</p>
+        <div className="glass-card rounded-[32px] p-20 text-center border-dashed border-2 border-white/10">
+          <div className="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-4">
+            <Search className="w-8 h-8 text-gray-600" />
+          </div>
+          <p className="text-gray-500 font-bold uppercase tracking-widest text-xs">No records found matching your filters</p>
         </div>
       ) : (
-        <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
-          <div className="divide-y divide-gray-100">
+        <div className="glass-card rounded-[32px] overflow-hidden">
+          <div className="divide-y divide-white/5">
             {filteredExpenses.map((expense) => (
               <div
                 key={expense.id}
-                className="flex items-center justify-between p-6 hover:bg-gray-50 transition"
+                className="group flex items-center justify-between p-6 hover:bg-white/5 transition-all duration-300"
               >
-                <div className="flex items-center space-x-4 flex-1">
+                <div className="flex items-center space-x-6 flex-1">
                   <div
-                    className={`w-14 h-14 rounded-xl bg-gradient-to-br ${getCategoryColor(
+                    className={`w-14 h-14 rounded-[20px] bg-gradient-to-br ${getCategoryColor(
                       expense.category
-                    )} flex items-center justify-center flex-shrink-0`}
+                    )} flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-110 transition-transform`}
                   >
-                    <span className="text-white font-bold text-lg">
+                    <span className="text-white font-black text-xl">
                       {expense.category.charAt(0)}
                     </span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-semibold text-gray-800 truncate">
+                    <p className="font-bold dark:text-white text-slate-900 text-lg truncate group-hover:text-emerald-500 transition-colors">
                       {expense.item_name}
                     </p>
-                    <div className="flex items-center space-x-3 mt-1">
-                      <span className="text-sm text-gray-500">{expense.category}</span>
-                      <span className="text-gray-300">•</span>
-                      <span className="text-sm text-gray-500">{expense.date}</span>
+                    <div className="flex items-center gap-2 mt-1 flex-wrap">
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest">{expense.category}</span>
+                      <span className="text-slate-300 dark:text-gray-700 font-black">•</span>
+                      <span className="text-[10px] font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest">{expense.date}</span>
                       <span
-                        className={`text-xs px-2 py-1 rounded-full ${
-                          expense.expense_type === 'need'
-                            ? 'bg-green-100 text-green-700'
-                            : 'bg-purple-100 text-purple-700'
-                        }`}
+                        className={`text-[8px] font-black px-2 py-0.5 rounded-full uppercase tracking-tighter ${expense.expense_type === 'need'
+                          ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                          : 'bg-purple-500/10 text-purple-400 border border-purple-500/20'
+                          }`}
                       >
                         {expense.expense_type}
                       </span>
                     </div>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
-                  <p className="font-bold text-gray-800 text-lg">
+                <div className="flex items-center space-x-6">
+                  <p className="font-black dark:text-white text-slate-900 text-xl">
                     ${expense.amount.toFixed(2)}
                   </p>
                   <button
                     onClick={() => handleDelete(expense.id)}
-                    className="p-2 text-red-600 hover:bg-red-50 rounded-lg transition"
+                    className="p-3 text-gray-600 hover:text-red-400 hover:bg-red-500/10 rounded-xl transition-all"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>

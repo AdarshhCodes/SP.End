@@ -143,92 +143,109 @@ export default function Rewards() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-800">Rewards & Achievements</h1>
-        <p className="text-gray-500 mt-1">
-          Earn badges and points for smart financial behavior
-        </p>
+    <div className="max-w-7xl mx-auto p-4 md:p-8">
+      <div className="mb-10">
+        <h1 className="text-3xl font-black dark:text-white text-slate-900 tracking-tighter uppercase italic transition-colors">Prestige & Rewards</h1>
+        <p className="text-slate-500 dark:text-gray-500 mt-2 font-medium uppercase tracking-[0.2em] text-[10px] transition-colors">Financial excellence certification</p>
       </div>
 
-      <div className="bg-gradient-to-r from-yellow-400 via-orange-400 to-red-500 rounded-2xl shadow-lg p-8 mb-8 text-white">
-        <div className="flex items-center justify-between">
-          <div>
-            <div className="flex items-center space-x-3 mb-2">
-              <Trophy className="w-10 h-10" />
-              <p className="text-2xl font-bold">Your Points</p>
+      <div className="bg-gradient-to-br from-[#064e3b] via-[#0d9488] to-[#0f172a] rounded-[32px] shadow-2xl p-10 mb-10 text-white relative overflow-hidden group">
+        <div className="absolute top-[-20%] right-[-10%] w-[400px] h-[400px] bg-white/10 blur-[100px] rounded-full animate-pulse" />
+        <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+          <div className="text-center md:text-left">
+            <div className="flex items-center justify-center md:justify-start space-x-4 mb-4">
+              <div className="p-4 bg-black/40 backdrop-blur-xl rounded-[24px] shadow-xl border border-white/10">
+                <Trophy className="w-10 h-10 text-emerald-400" />
+              </div>
+              <p className="text-2xl font-black uppercase tracking-widest italic">Net Prestige Score</p>
             </div>
-            <p className="text-5xl font-bold">{points}</p>
-            <p className="text-yellow-100 mt-2">
-              {badges.length} badges earned • {expenses.length} expenses tracked this month
+            <p className="text-7xl font-black tracking-tighter text-white drop-shadow-2xl italic">
+              {points.toLocaleString()}
+            </p>
+            <p className="text-emerald-300 font-bold mt-4 uppercase tracking-[0.24em] text-xs">
+              {badges.length} Protocols Earned • {expenses.length} Operations Logs
             </p>
           </div>
-          <div className="hidden md:block">
-            <Award className="w-32 h-32 opacity-30" />
+          <div className="relative group-hover:scale-110 transition-transform duration-700">
+            <Award className="w-48 h-48 text-emerald-500/20" />
+            <div className="absolute inset-0 bg-emerald-500/10 blur-[80px] rounded-full" />
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-        <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Points Breakdown</h2>
-          <div className="space-y-3">
-            <div className="flex items-center justify-between p-3 bg-teal-50 rounded-xl">
-              <div className="flex items-center space-x-3">
-                <Award className="w-5 h-5 text-teal-600" />
-                <span className="text-gray-700">Badges Earned</span>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+        <div className="glass-card rounded-[32px] p-8 border border-slate-200 dark:border-white/5 shadow-xl transition-all duration-500">
+          <h2 className="text-xs font-black text-slate-500 dark:text-gray-500 mb-6 uppercase tracking-[0.3em] flex items-center gap-3 transition-colors">
+            <div className="w-2 h-2 rounded-full bg-emerald-500" />
+            Prestige Algorithm
+          </h2>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 rounded-2xl group hover:bg-emerald-50 dark:hover:bg-white/10 transition-all">
+              <div className="flex items-center space-x-4">
+                <div className="p-2 bg-emerald-500/10 rounded-lg">
+                  <Award className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+                </div>
+                <span className="text-xs font-bold dark:text-white text-slate-900 uppercase tracking-widest transition-colors">Protocol Bonus</span>
               </div>
-              <span className="font-bold text-gray-800">
-                {badges.length} × 100 = {badges.length * 100} pts
+              <span className="font-black text-emerald-600 dark:text-emerald-400 text-lg transition-colors">
+                {badges.length * 100} pts
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-blue-50 rounded-xl">
-              <div className="flex items-center space-x-3">
-                <Star className="w-5 h-5 text-blue-600" />
-                <span className="text-gray-700">Expenses Tracked</span>
+            <div className="flex items-center justify-between p-5 bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 rounded-2xl group hover:bg-emerald-50 dark:hover:bg-white/10 transition-all">
+              <div className="flex items-center space-x-4">
+                <div className="p-2 bg-teal-500/10 rounded-lg">
+                  <Star className="w-5 h-5 text-teal-600 dark:text-teal-400" />
+                </div>
+                <span className="text-xs font-bold dark:text-white text-slate-900 uppercase tracking-widest transition-colors">Operation Logs</span>
               </div>
-              <span className="font-bold text-gray-800">
-                {expenses.length} × 5 = {expenses.length * 5} pts
+              <span className="font-black text-teal-600 dark:text-teal-400 text-lg transition-colors">
+                {expenses.length * 5} pts
               </span>
             </div>
           </div>
         </div>
 
-        <div className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">Level Progress</h2>
-          <div className="space-y-4">
+        <div className="glass-card rounded-[32px] p-8 border border-slate-200 dark:border-white/5 shadow-xl transition-all duration-500">
+          <h2 className="text-xs font-black text-slate-500 dark:text-gray-500 mb-6 uppercase tracking-[0.3em] flex items-center gap-3 transition-colors">
+            <div className="w-2 h-2 rounded-full bg-blue-500" />
+            Seniority Evolution
+          </h2>
+          <div className="space-y-6">
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-gray-600">Current Level</span>
-                <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-teal-600 to-blue-600">
+              <div className="flex items-center justify-between mb-4">
+                <span className="text-xs font-bold text-slate-500 dark:text-gray-400 uppercase tracking-widest transition-colors">Clearance Level</span>
+                <span className="text-5xl font-black italic text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-teal-700 dark:from-emerald-400 dark:to-teal-600 transition-colors">
                   {Math.floor(points / 500) + 1}
                 </span>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-4 overflow-hidden">
+              <div className="w-full bg-slate-100 dark:bg-[#051410] rounded-full h-4 overflow-hidden shadow-inner border border-slate-200 dark:border-white/5 transition-colors">
                 <div
-                  className="h-full bg-gradient-to-r from-teal-500 to-blue-600 transition-all duration-500"
+                  className="h-full bg-gradient-to-r from-emerald-500 to-teal-500 transition-all duration-1000 shadow-[0_0_20px_rgba(16,185,129,0.3)]"
                   style={{ width: `${(points % 500) / 5}%` }}
                 />
               </div>
-              <p className="text-xs text-gray-500 mt-2">
-                {500 - (points % 500)} points to next level
+              <p className="text-[10px] font-bold text-slate-400 dark:text-gray-600 mt-4 uppercase tracking-[0.2em] text-right italic transition-colors">
+                {500 - (points % 500)} units to next clearance
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="mb-8">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Your Badges</h2>
+      <div className="mb-12">
+        <h2 className="text-xl font-black dark:text-white text-slate-900 mb-8 uppercase tracking-tighter italic flex items-center gap-4 transition-colors">
+          <Award className="w-6 h-6 text-emerald-500" />
+          Earned Certificates
+        </h2>
         {badges.length === 0 ? (
-          <div className="bg-white rounded-2xl shadow-lg p-12 border border-gray-100 text-center">
-            <Award className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500">
-              No badges earned yet. Start tracking expenses and meeting goals to earn rewards!
+          <div className="glass-card rounded-[32px] p-24 text-center border-dashed border-2 border-white/10">
+            <Award className="w-16 h-16 text-gray-700 mx-auto mb-6" />
+            <p className="text-gray-500 font-bold uppercase tracking-[0.2em] text-xs">
+              No certifications issued for current user session.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {badges.map((badge) => {
               const Icon = badgeIcons[badge.badge_type] || Award;
               const color = badgeColors[badge.badge_type] || 'from-gray-400 to-gray-600';
@@ -236,30 +253,31 @@ export default function Rewards() {
               return (
                 <div
                   key={badge.id}
-                  className="bg-white rounded-2xl shadow-lg p-6 border border-gray-100 hover:shadow-xl transition"
+                  className="glass-card rounded-[32px] p-8 border border-slate-200 dark:border-white/5 hover:border-emerald-500/30 transition-all duration-500 group relative overflow-hidden shadow-xl"
                 >
+                  <div className="absolute top-0 right-0 w-24 h-24 bg-white/5 rounded-full blur-3xl -mr-10 -mt-10" />
                   <div
-                    className={`w-20 h-20 mx-auto rounded-full bg-gradient-to-br ${color} flex items-center justify-center mb-4`}
+                    className={`w-24 h-24 mx-auto rounded-[28px] bg-gradient-to-br ${color} flex items-center justify-center mb-6 shadow-2xl group-hover:scale-110 transition-transform duration-500`}
                   >
-                    <Icon className="w-10 h-10 text-white" />
+                    <Icon className="w-12 h-12 text-white drop-shadow-lg" />
                   </div>
-                  <h3 className="font-bold text-gray-800 text-center text-lg">
+                  <h3 className="font-black dark:text-white text-slate-900 text-center text-xl uppercase tracking-tighter italic transition-colors">
                     {badge.badge_name}
                   </h3>
-                  <p className="text-sm text-gray-500 text-center mt-2">
-                    Earned {new Date(badge.earned_at).toLocaleDateString()}
+                  <p className="text-[10px] font-bold text-slate-500 dark:text-gray-500 text-center mt-3 uppercase tracking-widest transition-colors">
+                    Authorized {new Date(badge.earned_at).toLocaleDateString()}
                   </p>
-                  <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
-                    <p className="text-center text-teal-600 font-semibold">+100 points</p>
+                  <div className="mt-8 pt-8 border-t border-slate-200 dark:border-white/5 space-y-4 transition-colors">
+                    <p className="text-center text-emerald-600 dark:text-emerald-400 font-black text-sm uppercase tracking-widest transition-colors">+100 PRESTIGE</p>
                     <button
                       onClick={() => {
                         setSelectedBadge(badge);
                         setShowCertificate(true);
                       }}
-                      className="w-full flex items-center justify-center space-x-2 px-3 py-2 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg hover:from-teal-600 hover:to-blue-700 transition text-sm"
+                      className="w-full flex items-center justify-center space-x-3 px-6 py-4 bg-emerald-500 hover:bg-emerald-600 text-black rounded-2xl font-black transition-all shadow-xl shadow-emerald-500/10 text-xs uppercase tracking-tighter transform active:scale-95"
                     >
-                      <Download className="w-4 h-4" />
-                      <span>Get Certificate</span>
+                      <Download className="w-5 h-5" />
+                      <span>Issue Certificate</span>
                     </button>
                   </div>
                 </div>
@@ -283,8 +301,11 @@ export default function Rewards() {
       )}
 
       <div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-6">Available Badges</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <h2 className="text-xl font-black dark:text-white text-slate-900 mb-8 uppercase tracking-tighter italic flex items-center gap-4 transition-colors">
+          <Trophy className="w-6 h-6 text-emerald-500" />
+          Clearance Protocols
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {allBadgeTypes.map((badge) => {
             const earned = earnedBadgeTypes.includes(badge.type);
             const Icon = badgeIcons[badge.type] || Award;
@@ -293,27 +314,32 @@ export default function Rewards() {
             return (
               <div
                 key={badge.type}
-                className={`bg-white rounded-2xl shadow-lg p-6 border border-gray-100 ${
-                  earned ? 'opacity-50' : ''
-                }`}
+                className={`glass-card rounded-[32px] p-8 border border-slate-200 dark:border-white/5 transition-all duration-500 ${earned ? 'opacity-40 grayscale pointer-events-none' : 'hover:bg-slate-50 dark:hover:bg-white/5'
+                  }`}
               >
-                <div className="flex items-start space-x-4">
+                <div className="flex items-start space-x-6">
                   <div
-                    className={`w-16 h-16 rounded-xl bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0`}
+                    className={`w-20 h-20 rounded-[24px] bg-gradient-to-br ${color} flex items-center justify-center flex-shrink-0 shadow-lg`}
                   >
-                    <Icon className="w-8 h-8 text-white" />
+                    <Icon className="w-10 h-10 text-white" />
                   </div>
                   <div className="flex-1">
-                    <div className="flex items-center space-x-2">
-                      <h3 className="font-bold text-gray-800 text-lg">{badge.name}</h3>
+                    <div className="flex items-center justify-between mb-2">
+                      <h3 className="font-black dark:text-white text-slate-900 text-lg uppercase tracking-tighter italic transition-colors">{badge.name}</h3>
                       {earned && (
-                        <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded-full">
-                          Earned
-                        </span>
+                        <div className="flex items-center gap-2 px-3 py-1 bg-emerald-500/10 rounded-full border border-emerald-500/20">
+                          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                          <span className="text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-widest transition-colors">
+                            Unlocked
+                          </span>
+                        </div>
                       )}
                     </div>
-                    <p className="text-sm text-gray-600 mt-1">{badge.description}</p>
-                    <p className="text-xs text-gray-500 mt-2">{badge.requirement}</p>
+                    <p className="text-xs font-bold text-slate-500 dark:text-gray-500 mt-2 uppercase tracking-wide leading-relaxed transition-colors">{badge.description}</p>
+                    <div className="mt-4 flex items-center gap-2">
+                      <Zap className="w-3 h-3 text-emerald-600 dark:text-emerald-500 transition-colors" />
+                      <p className="text-[10px] font-black text-emerald-600 dark:text-emerald-500/80 uppercase tracking-[0.2em] transition-colors">{badge.requirement}</p>
+                    </div>
                   </div>
                 </div>
               </div>

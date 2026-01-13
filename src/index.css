@@ -3,29 +3,86 @@
 @tailwind utilities;
 
 @layer components {
-  .glass-card {
-    @apply bg-white/80 backdrop-blur-lg border border-white/20 shadow-xl shadow-gray-200/50;
-  }
+    .glass-card {
+        @apply bg-white/70 dark:bg-[#1a231e]/80 backdrop-blur-xl border border-slate-200 dark:border-white/5 shadow-xl transition-all duration-300;
+    }
 
-  .gradient-card-pink {
-    @apply bg-gradient-to-br from-[#FFB7B7] to-[#FF92A5] text-white;
-  }
+    .gradient-card-green {
+        @apply bg-gradient-to-br from-emerald-600 to-teal-700 text-white;
+    }
 
-  .gradient-card-blue {
-    @apply bg-gradient-to-br from-[#A2D2FF] to-[#70BCF2] text-white;
-  }
+    .gradient-card-dark {
+        @apply bg-gradient-to-br from-slate-800 to-slate-900 dark:from-[#1a231e] dark:to-[#0a0f0c] text-white border border-slate-700 dark:border-white/5;
+    }
 
-  .gradient-card-orange {
-    @apply bg-gradient-to-br from-[#FFD8A8] to-[#FFB347] text-white;
-  }
+    .gradient-card-red {
+        @apply bg-gradient-to-br from-red-500 to-rose-700 text-white;
+    }
 
-  .dashboard-bg {
-    @apply bg-[#F4F7FE] min-h-screen text-[#1B2559];
-  }
+    .dashboard-bg {
+        @apply bg-slate-50 dark:bg-[#051410] min-h-screen text-slate-900 dark:text-gray-100 relative overflow-hidden transition-colors duration-500;
+    }
+}
+
+@keyframes radial-loop {
+    0% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(8%, 5%) scale(1.1) rotate(5deg);
+    }
+
+    66% {
+        transform: translate(-5%, 10%) scale(0.9) rotate(-5deg);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1) rotate(0deg);
+    }
+}
+
+.animate-radial-loop {
+    animation: radial-loop 20s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+@keyframes radial-loop-reverse {
+    0% {
+        transform: translate(0, 0) scale(1.1) rotate(0deg);
+    }
+
+    33% {
+        transform: translate(-10%, -8%) scale(0.9) rotate(-8deg);
+    }
+
+    66% {
+        transform: translate(8%, -5%) scale(1.1) rotate(8deg);
+    }
+
+    100% {
+        transform: translate(0, 0) scale(1.1) rotate(0deg);
+    }
+}
+
+.animate-radial-loop-reverse {
+    animation: radial-loop-reverse 25s ease-in-out infinite;
+    will-change: transform;
+    transform: translateZ(0);
+}
+
+.gpu-accelerated {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
+
+.bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
 /* Custom styles for Recharts Tooltip */
 .recharts-default-tooltip {
-  @apply !bg-white/90 !backdrop-blur-md !border-none !rounded-xl !shadow-lg !p-4 !font-sans;
+    @apply !bg-white/90 !backdrop-blur-md !border-none !rounded-xl !shadow-lg !p-4 !font-sans;
 }
-

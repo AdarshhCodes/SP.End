@@ -36,14 +36,14 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-[#051410] flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans antialiased text-gray-200">
+    <div className="min-h-screen relative overflow-hidden bg-white dark:bg-[#051410] flex items-center justify-center p-4 sm:p-6 lg:p-8 font-sans antialiased text-slate-900 dark:text-gray-200 transition-colors duration-500">
       {/* Dynamic Animated Background */}
-      <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-[#051410]" />
+      <div className="absolute inset-0 z-0 transition-colors duration-500">
+        <div className="absolute inset-0 bg-white dark:bg-[#051410]" />
 
         {/* Animated Radial Blobs */}
-        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-[#064e3b]/40 rounded-full blur-[120px] animate-radial-loop" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-[#0d9488]/30 rounded-full blur-[120px] animate-radial-loop-reverse" />
+        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-emerald-200/40 dark:bg-[#064e3b]/40 rounded-full blur-[120px] animate-radial-loop" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-teal-200/30 dark:bg-[#0d9488]/30 rounded-full blur-[120px] animate-radial-loop-reverse" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[80%] h-[80%] bg-[#1c4538]/20 rounded-full blur-[140px] animate-pulse" />
 
         {/* Texture Overlay */}
@@ -72,7 +72,7 @@ export default function Auth() {
         }
       `}</style>
 
-      <div className="relative z-10 bg-[#1a231e]/80 backdrop-blur-2xl w-full max-w-[1000px] h-full min-h-[600px] rounded-[32px] overflow-hidden flex shadow-2xl border border-white/5">
+      <div className="relative z-10 bg-white/80 dark:bg-[#1a231e]/80 backdrop-blur-2xl w-full max-w-[1000px] h-full min-h-[600px] rounded-[32px] overflow-hidden flex shadow-2xl border border-slate-200 dark:border-white/5 transition-all duration-500">
 
         {/* Left Pane - Visual & Branding */}
         <div className="hidden lg:flex relative w-1/2 p-10 flex-col justify-between overflow-hidden">
@@ -80,9 +80,9 @@ export default function Auth() {
             <img
               src={bgImage}
               alt="Serene Landscape"
-              className="w-full h-full object-cover opacity-60 scale-110"
+              className="w-full h-full object-cover opacity-60 dark:opacity-60 scale-110"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#051410] via-transparent to-[#051410]/30" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-100 dark:from-[#051410] via-transparent to-white/30 dark:to-[#051410]/30 transition-colors duration-500" />
           </div>
 
           <div className="relative z-10 flex items-center justify-between">
@@ -94,15 +94,15 @@ export default function Auth() {
                   className="w-full h-full object-cover opacity-100 scale-110"
                 />
               </div>
-              <span className="text-2xl font-bold tracking-tight text-white">SP.End</span>
+              <span className="text-2xl font-bold tracking-tight dark:text-white text-slate-900 transition-colors">SP.End</span>
             </div>
-            <button className="text-sm font-medium bg-white/10 hover:bg-white/20 backdrop-blur-md px-4 py-2 rounded-full transition-all flex items-center gap-2 border border-white/10">
+            <button className="text-sm font-medium bg-slate-900/5 dark:bg-white/10 hover:bg-slate-900/10 dark:hover:bg-white/20 backdrop-blur-md px-4 py-2 rounded-full transition-all flex items-center gap-2 border border-slate-900/10 dark:border-white/10 dark:text-white text-slate-900">
               Back to website <ArrowRight size={16} />
             </button>
           </div>
 
           <div className="relative z-10">
-            <h2 className="text-4xl font-semibold leading-tight text-white mb-4">
+            <h2 className="text-4xl font-semibold leading-tight dark:text-white text-slate-900 mb-4 transition-colors">
               Cultivating Harmony,<br />
               Nurturing Abundance
             </h2>
@@ -118,14 +118,14 @@ export default function Auth() {
         <div className="w-full lg:w-1/2 p-8 sm:p-12 lg:p-16 flex flex-col justify-center">
           <div className="max-w-sm mx-auto w-full">
             <div className="mb-10 text-center lg:text-left">
-              <h1 className="text-3xl font-bold text-white mb-2">
+              <h1 className="text-3xl font-bold dark:text-white text-slate-900 mb-2 transition-colors">
                 {isSignUp ? 'Create an account' : 'Welcome back'}
               </h1>
-              <p className="text-gray-400">
+              <p className="text-slate-500 dark:text-gray-400 transition-colors">
                 {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
                 <button
                   onClick={() => setIsSignUp(!isSignUp)}
-                  className="text-emerald-400 hover:text-emerald-300 font-semibold transition-colors decoration-emerald-400/30 underline-offset-4 hover:underline"
+                  className="text-emerald-600 dark:text-emerald-400 hover:text-emerald-500 dark:hover:text-emerald-300 font-bold transition-colors decoration-emerald-400/30 underline-offset-4 hover:underline"
                 >
                   {isSignUp ? 'Log in' : 'Sign up'}
                 </button>
@@ -135,12 +135,12 @@ export default function Auth() {
             <form onSubmit={handleSubmit} className="space-y-4">
               {isSignUp && (
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-gray-400 ml-1">Full Name</label>
+                  <label className="text-sm font-medium text-slate-500 dark:text-gray-400 ml-1 transition-colors">Full Name</label>
                   <div className="relative group">
-                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-emerald-400 transition-colors" />
+                    <User className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 group-focus-within:text-emerald-500 dark:group-focus-within:text-emerald-400 transition-colors" />
                     <input
                       type="text"
-                      className="w-full bg-[#242f29] border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all text-white placeholder-gray-600"
+                      className="w-full bg-slate-100 dark:bg-[#242f29] border border-slate-200 dark:border-white/5 rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400"
                       placeholder="Enter your name"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -151,12 +151,12 @@ export default function Auth() {
               )}
 
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-400 ml-1">Email address</label>
+                <label className="text-sm font-medium text-slate-500 dark:text-gray-400 ml-1 transition-colors">Email address</label>
                 <div className="relative group">
-                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-emerald-400 transition-colors" />
+                  <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 group-focus-within:text-emerald-500 dark:group-focus-within:text-emerald-400 transition-colors" />
                   <input
                     type="email"
-                    className="w-full bg-[#242f29] border border-white/5 rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all text-white placeholder-gray-600"
+                    className="w-full bg-slate-100 dark:bg-[#242f29] border border-slate-200 dark:border-white/5 rounded-2xl py-3.5 pl-12 pr-4 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400"
                     placeholder="name@example.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -166,12 +166,12 @@ export default function Auth() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="text-sm font-medium text-gray-400 ml-1">Password</label>
+                <label className="text-sm font-medium text-slate-500 dark:text-gray-400 ml-1 transition-colors">Password</label>
                 <div className="relative group">
-                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-500 group-focus-within:text-emerald-400 transition-colors" />
+                  <Lock className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 dark:text-gray-500 group-focus-within:text-emerald-500 dark:group-focus-within:text-emerald-400 transition-colors" />
                   <input
                     type={showPassword ? "text" : "password"}
-                    className="w-full bg-[#242f29] border border-white/5 rounded-2xl py-3.5 pl-12 pr-12 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all text-white placeholder-gray-600"
+                    className="w-full bg-slate-100 dark:bg-[#242f29] border border-slate-200 dark:border-white/5 rounded-2xl py-3.5 pl-12 pr-12 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400"
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -180,7 +180,7 @@ export default function Auth() {
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300 transition-colors"
+                    className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 dark:text-gray-500 hover:text-slate-600 dark:hover:text-gray-300 transition-colors"
                   >
                     {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                   </button>
@@ -198,12 +198,12 @@ export default function Auth() {
                   <input
                     id="terms"
                     type="checkbox"
-                    className="w-4 h-4 bg-[#242f29] border-white/10 rounded focus:ring-emerald-500 text-emerald-500 cursor-pointer"
+                    className="w-4 h-4 bg-slate-100 dark:bg-[#242f29] border-slate-200 dark:border-white/10 rounded focus:ring-emerald-500 text-emerald-500 cursor-pointer"
                     required
                   />
                 </div>
-                <label htmlFor="terms" className="text-sm text-gray-400 cursor-pointer">
-                  I agree to the <span className="text-emerald-400 hover:underline">Terms & Conditions</span>
+                <label htmlFor="terms" className="text-sm text-slate-500 dark:text-gray-400 cursor-pointer transition-colors">
+                  I agree to the <span className="text-emerald-600 dark:text-emerald-400 hover:underline">Terms & Conditions</span>
                 </label>
               </div>
 
@@ -218,18 +218,18 @@ export default function Auth() {
 
             <div className="mt-8">
               <div className="relative flex items-center justify-center mb-6">
-                <div className="flex-grow border-t border-white/5"></div>
-                <span className="flex-shrink mx-4 text-xs font-semibold text-gray-500 uppercase tracking-widest">Or continue with</span>
-                <div className="flex-grow border-t border-white/5"></div>
+                <div className="flex-grow border-t border-slate-200 dark:border-white/5 transition-colors"></div>
+                <span className="flex-shrink mx-4 text-xs font-semibold text-slate-400 dark:text-gray-500 uppercase tracking-widest transition-colors">Or continue with</span>
+                <div className="flex-grow border-t border-slate-200 dark:border-white/5 transition-colors"></div>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
-                <button className="flex items-center justify-center gap-3 bg-[#242f29] hover:bg-[#2d3a32] border border-white/5 text-gray-300 py-3 rounded-2xl transition-all">
-                  <Chrome size={20} className="text-white" />
+                <button className="flex items-center justify-center gap-3 bg-slate-100 dark:bg-[#242f29] hover:bg-slate-200 dark:hover:bg-[#2d3a32] border border-slate-200 dark:border-white/5 text-slate-600 dark:text-gray-300 py-3 rounded-2xl transition-all">
+                  <Chrome size={20} className="dark:text-white text-slate-900" />
                   <span className="text-sm font-medium">Google</span>
                 </button>
-                <button className="flex items-center justify-center gap-3 bg-[#242f29] hover:bg-[#2d3a32] border border-white/5 text-gray-300 py-3 rounded-2xl transition-all">
-                  <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <button className="flex items-center justify-center gap-3 bg-slate-100 dark:bg-[#242f29] hover:bg-slate-200 dark:hover:bg-[#2d3a32] border border-slate-200 dark:border-white/5 text-slate-600 dark:text-gray-300 py-3 rounded-2xl transition-all">
+                  <svg className="w-5 h-5 fill-current dark:text-white text-slate-900" viewBox="0 0 24 24">
                     <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09zM15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.82-.78.897-1.467 2.338-1.284 3.713 1.348.104 2.717-.702 3.571-1.703z" />
                   </svg>
                   <span className="text-sm font-medium">Apple</span>
