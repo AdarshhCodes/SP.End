@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { Plus, ShoppingBag, Coffee, Plane, FileText, MoreHorizontal } from 'lucide-react';
+import ScanReceiptButton from "../utils/receipt/ScanReceiptButton";
+import { parseReceiptText } from "../utils/receipt/receiptParser";
 
 const categories = [
   { name: 'Food', icon: Coffee, color: 'from-orange-400 to-red-500' },
@@ -21,6 +23,27 @@ export default function AddExpense() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const handleReceiptScan = (ocrText: string) => {
+    const parsed = parseReceiptText(ocrText);
+
+    if (parsed.amount.confidence !== "LOW" && parsed.amount.value !== null) {
+      setAmount(parsed.amount.value.toString());
+    }
+
+    if (parsed.merchantName.confidence !== "LOW" && parsed.merchantName.value) {
+      setItemName(parsed.merchantName.value);
+    }
+
+    if (parsed.category.confidence === "HIGH" && parsed.category.value) {
+      setCategory(parsed.category.value);
+    }
+
+    if (parsed.date.confidence === "HIGH" && parsed.date.value) {
+      setDate(parsed.date.value.toISOString().split("T")[0]);
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,9 +93,13 @@ export default function AddExpense() {
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-4">
+               <div className="flex items-center justify-between">
               <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
                 Item Name
               </label>
+    {/* Scan Receipt Button  */}
+                <ScanReceiptButton onScanComplete={handleReceiptScan} />
+              </div>
               <input
                 type="text"
                 value={itemName}
