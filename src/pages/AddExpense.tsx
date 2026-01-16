@@ -92,44 +92,54 @@ export default function AddExpense() {
       <div className="glass-card rounded-[32px] p-8">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-               <div className="flex items-center justify-between">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
-                Item Name
-              </label>
-    {/* Scan Receipt Button  */}
-                <ScanReceiptButton onScanComplete={handleReceiptScan} />
-              </div>
-              <input
-                type="text"
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner"
-                placeholder="e.g., Starbucks Coffee"
-                required
-              />
-            </div>
+           <div className="space-y-4">
+  {/* HEADER (fixed height) */}
+  <div className="min-h-[48px] flex items-center justify-between">
+    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
+      Item Name
+    </label>
 
-            <div className="space-y-4">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
-                Amount
-              </label>
-              <div className="relative group">
-                <span className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">
-                  $
-                </span>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner font-bold text-xl"
-                  placeholder="0.00"
-                  required
-                />
-              </div>
-            </div>
+    <ScanReceiptButton onScanComplete={handleReceiptScan} />
+  </div>
+
+  {/* INPUT */}
+  <input
+    type="text"
+    value={itemName}
+    onChange={(e) => setItemName(e.target.value)}
+    className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner"
+    placeholder="e.g., Starbucks Coffee"
+    required
+  />
+</div>
+
+
+          <div className="space-y-4">
+  {/* HEADER (same fixed height) */}
+  <div className="min-h-[48px] flex items-center">
+    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
+      Amount
+    </label>
+  </div>
+
+  {/* INPUT */}
+  <div className="relative group">
+    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">
+      $
+    </span>
+    <input
+      type="number"
+      step="0.01"
+      min="0"
+      value={amount}
+      onChange={(e) => setAmount(e.target.value)}
+      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner font-bold text-xl"
+      placeholder="0.00"
+      required
+    />
+  </div>
+</div>
+
           </div>
 
           <div>
