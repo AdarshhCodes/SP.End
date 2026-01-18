@@ -1,7 +1,8 @@
-import { ReactNode, useState } from 'react';
+import { ReactNode, useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
 import { LayoutDashboard, Plus, History, Target, Menu, X, Award, TrendingUp, Settings, HelpCircle, Sun, Moon } from 'lucide-react';
+import FloatingNavbar from './FloatingNavbar';
 
 type LayoutProps = {
   children: ReactNode;
@@ -13,6 +14,23 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
   const { profile, signOut } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isNavbarVisible, setIsNavbarVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 50) {
+        setIsNavbarVisible(false);
+      } else {
+        setIsNavbarVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY]);
 
   const menuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
@@ -35,13 +53,13 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
     <div className="min-h-screen dashboard-bg">
       {/* Dynamic Animated Background Layers (Global feel) */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden transition-opacity duration-1000 gpu-accelerated">
-        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-emerald-200/30 dark:bg-[#064e3b]/20 rounded-full blur-[120px] animate-radial-loop" />
-        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-teal-100/20 dark:bg-[#0d9488]/15 rounded-full blur-[120px] animate-radial-loop-reverse" />
-        <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.02] brightness-150 contrast-150 mix-blend-overlay bg-noise" />
+        <div className="absolute top-[-10%] left-[-10%] w-[70%] h-[70%] bg-emerald-100/20 dark:bg-[#064e3b]/20 rounded-full blur-[120px] animate-radial-loop" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[70%] h-[70%] bg-teal-50/15 dark:bg-[#0d9488]/15 rounded-full blur-[120px] animate-radial-loop-reverse" />
+        <div className="absolute inset-0 opacity-[0.02] dark:opacity-[0.02] brightness-150 contrast-150 mix-blend-overlay bg-noise" />
       </div>
 
-      {/* Mobile Header */}
-      <div className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-[#1a231e]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5 z-30 lg:hidden transition-colors duration-500">
+      {/* Mobile Header - Hidden on mobile, replaced by Floating Navbar */}
+      <div className="fixed top-0 left-0 right-0 bg-white/80 dark:bg-[#1a231e]/80 backdrop-blur-md border-b border-slate-200 dark:border-white/5 z-30 hidden lg:hidden transition-colors duration-500">
         <div className="flex items-center justify-between px-4 py-4">
           <div className="flex items-center space-x-2">
             <div className="w-8 h-8 rounded-lg bg-emerald-500 flex items-center justify-center shadow-lg shadow-emerald-500/20">
@@ -151,9 +169,17 @@ export default function Layout({ children, currentPage, onNavigate }: LayoutProp
         />
       )}
 
-      <main className="lg:ml-72 min-h-screen relative z-10 p-4 pt-24 lg:pt-4 transition-all duration-500">
+      <main className="lg:ml-72 min-h-screen relative z-10 p-4 pt-4 lg:pt-4 transition-all duration-500">
         <div className="max-w-[1600px] mx-auto">{children}</div>
       </main>
+
+      <div className="lg:hidden">
+        <FloatingNavbar
+          currentPage={currentPage}
+          onNavigate={onNavigate}
+          isVisible={isNavbarVisible}
+        />
+      </div>
     </div>
   );
 }

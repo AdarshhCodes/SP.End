@@ -8,6 +8,7 @@ import History from './pages/History';
 import Insights from './pages/Insights';
 import Goals from './pages/Goals';
 import Rewards from './pages/Rewards';
+import Settings from './pages/Settings';
 import Layout from './components/Layout';
 
 function AppContent() {
@@ -40,6 +41,8 @@ function AppContent() {
         return <Goals />;
       case 'rewards':
         return <Rewards />;
+      case 'settings':
+        return <Settings />;
       default:
         return <Dashboard />;
     }

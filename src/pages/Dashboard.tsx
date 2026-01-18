@@ -17,6 +17,7 @@ import {
   ArrowUpRight,
 } from 'lucide-react';
 import SpendingChart from '../components/SpendingChart';
+import NativeFeatures from '../components/NativeFeatures';
 
 interface DashboardProps {
   onNavigate?: (page: string) => void;
@@ -321,6 +322,7 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
               <SpendingChart data={trendData} />
             </div>
           </div>
+          <NativeFeatures />
         </div>
 
         {/* Sidebar Area */}
