@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { Plus, ShoppingBag, Coffee, Plane, FileText, MoreHorizontal } from 'lucide-react';
+import ScanReceiptButton from "../utils/receipt/ScanReceiptButton";
+import { parseReceiptText } from "../utils/receipt/receiptParser";
 
 const categories = [
   { name: 'Food', icon: Coffee, color: 'from-orange-400 to-red-500' },
@@ -21,6 +23,27 @@ export default function AddExpense() {
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
+
+  const handleReceiptScan = (ocrText: string) => {
+    const parsed = parseReceiptText(ocrText);
+
+    if (parsed.amount.confidence !== "LOW" && parsed.amount.value !== null) {
+      setAmount(parsed.amount.value.toString());
+    }
+
+    if (parsed.merchantName.confidence !== "LOW" && parsed.merchantName.value) {
+      setItemName(parsed.merchantName.value);
+    }
+
+    if (parsed.category.confidence === "HIGH" && parsed.category.value) {
+      setCategory(parsed.category.value);
+    }
+
+    if (parsed.date.confidence === "HIGH" && parsed.date.value) {
+      setDate(parsed.date.value.toISOString().split("T")[0]);
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -69,40 +92,54 @@ export default function AddExpense() {
       <div className="glass-card rounded-[32px] p-8">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="space-y-4">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
-                Item Name
-              </label>
-              <input
-                type="text"
-                value={itemName}
-                onChange={(e) => setItemName(e.target.value)}
-                className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner"
-                placeholder="e.g., Starbucks Coffee"
-                required
-              />
-            </div>
+           <div className="space-y-4">
+  {/* HEADER (fixed height) */}
+  <div className="min-h-[48px] flex items-center justify-between">
+    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
+      Item Name
+    </label>
 
-            <div className="space-y-4">
-              <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
-                Amount
-              </label>
-              <div className="relative group">
-                <span className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">
-                  $
-                </span>
-                <input
-                  type="number"
-                  step="0.01"
-                  min="0"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner font-bold text-xl"
-                  placeholder="0.00"
-                  required
-                />
-              </div>
-            </div>
+    <ScanReceiptButton onScanComplete={handleReceiptScan} />
+  </div>
+
+  {/* INPUT */}
+  <input
+    type="text"
+    value={itemName}
+    onChange={(e) => setItemName(e.target.value)}
+    className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner"
+    placeholder="e.g., Starbucks Coffee"
+    required
+  />
+</div>
+
+
+          <div className="space-y-4">
+  {/* HEADER (same fixed height) */}
+  <div className="min-h-[48px] flex items-center">
+    <label className="block text-sm font-bold text-gray-400 uppercase tracking-widest ml-1">
+      Amount
+    </label>
+  </div>
+
+  {/* INPUT */}
+  <div className="relative group">
+    <span className="absolute left-6 top-1/2 -translate-y-1/2 text-emerald-500 font-bold text-lg">
+      $
+    </span>
+    <input
+      type="number"
+      step="0.01"
+      min="0"
+      value={amount}
+      onChange={(e) => setAmount(e.target.value)}
+      className="w-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-6 outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500/50 transition-all dark:text-white text-slate-900 dark:placeholder-gray-600 placeholder-slate-400 shadow-inner font-bold text-xl"
+      placeholder="0.00"
+      required
+    />
+  </div>
+</div>
+
           </div>
 
           <div>
