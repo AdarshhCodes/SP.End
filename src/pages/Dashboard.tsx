@@ -164,7 +164,10 @@ export default function Dashboard({ onNavigate }: DashboardProps) {
         {/* Profile Card */}
         <div className="glass-card rounded-[32px] p-8 flex flex-col items-center">
           <div className="flex justify-end w-full">
-            <button className="text-gray-600 hover:text-gray-400 transition-colors">
+            <button
+              onClick={() => onNavigate?.('settings')}
+              className="text-gray-600 hover:text-gray-400 transition-colors"
+            >
               <MoreHorizontal className="w-5 h-5" />
             </button>
           </div>

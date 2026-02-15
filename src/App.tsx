@@ -8,7 +8,9 @@ import History from './pages/History';
 import Insights from './pages/Insights';
 import Goals from './pages/Goals';
 import Rewards from './pages/Rewards';
+import Settings from './pages/Settings';
 import Layout from './components/Layout';
+import NativeFeatures from './components/NativeFeatures';
 
 function AppContent() {
   const { user, loading } = useAuth();
@@ -40,15 +42,20 @@ function AppContent() {
         return <Goals />;
       case 'rewards':
         return <Rewards />;
+      case 'settings':
+        return <Settings />;
       default:
-        return <Dashboard />;
+        return <Dashboard onNavigate={setCurrentPage} />;
     }
   };
 
   return (
-    <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
-      {renderPage()}
-    </Layout>
+    <>
+      <NativeFeatures />
+      <Layout currentPage={currentPage} onNavigate={setCurrentPage}>
+        {renderPage()}
+      </Layout>
+    </>
   );
 }
 
