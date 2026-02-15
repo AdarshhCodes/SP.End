@@ -2,7 +2,7 @@
 
 **SP.End** is a modern, high-performance personal finance management application designed to give you absolute control over your spending habits with a premium, immersive user experience.
 
-[![Latest Release](https://img.shields.io/badge/release-v1.0.0--beta-emerald?style=for-the-badge)](https://github.com/your-username/sp-end/releases/latest)
+[![Latest Release](https://img.shields.io/badge/release-v0.1.1-emerald?style=for-the-badge)](https://github.com/AdarshhCodes/SP.End/releases/download/v0.1.1/SPend.apk)
 
 ---
 
@@ -86,12 +86,9 @@ To run **SP.End** on your Android device:
 ## 🔗 Latest Release
 
 Download the latest Android APK or view the release notes here:
-[**Download Latest Release (v1.0.0-beta)**](https://github.com/your-username/sp-end/releases/latest)
+[**Download Latest Release (v1.0.0-beta)**](https://github.com/AdarshhCodes/SP.End/releases/download/v0.1.1/SPend.apk)
 
 ---
 
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
 
 Developed with ❤️ by [Adarsh](https://github.com/AdarshhCodes) and [Debojeet](https://github.com/PEEXR)
