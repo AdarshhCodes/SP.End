@@ -86,7 +86,7 @@ To run **SP.End** on your Android device:
 ## 🔗 Latest Release
 
 Download the latest Android APK or view the release notes here:
-[**Download Latest Release (v1.0.0-beta)**](https://github.com/AdarshhCodes/SP.End/releases/download/v0.1.1/SPend.apk)
+[**Download Latest Release (v0.1.1)**](https://github.com/AdarshhCodes/SP.End/releases/download/v0.1.1/SPend.apk)
 
 ---
 
