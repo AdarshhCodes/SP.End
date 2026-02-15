@@ -112,11 +112,12 @@ export default function Insights() {
       const earnedBadges = checkTimeBasedBadges(weeklyComp, monthlyComp, existingBadgeTypes);
 
       if (earnedBadges.length > 0) {
-        await supabase.from('badges').insert(
+      await supabase.from('badges').insert(
           earnedBadges.map((badge) => ({
             user_id: user.id,
             badge_name: badge.name,
             badge_type: badge.type,
+            description: badge.description,
           }))
         );
         setNewBadges(earnedBadges);

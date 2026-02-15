@@ -91,6 +91,8 @@ export default function Rewards() {
             user_id: user.id,
             badge_name: badge.name,
             badge_type: badge.type,
+            description: badge.description,
+
           },
         ]);
       }

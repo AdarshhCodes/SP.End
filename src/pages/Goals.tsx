@@ -52,14 +52,16 @@ export default function Goals() {
     if (!user) return;
 
     try {
-      const { error } = await supabase.from('goals').insert([
-        {
-          user_id: user.id,
-          title: newGoal.title,
-          target_amount: parseFloat(newGoal.target_amount),
-          deadline: newGoal.deadline || null,
-        },
-      ]);
+     const { error } = await supabase.from('goals').insert([
+  {
+    user_id: user.id,
+    goal_name: newGoal.title.trim(),
+    target_amount: parseFloat(newGoal.target_amount),
+    deadline: newGoal.deadline || null,
+    current_amount: 0,
+  },
+]);
+
 
       if (error) throw error;
 
@@ -196,7 +198,7 @@ export default function Goals() {
               >
                 <div className="flex items-start justify-between mb-8">
                   <div className="space-y-1">
-                    <h3 className="font-black dark:text-white text-slate-900 text-xl uppercase tracking-tighter group-hover:text-emerald-500 transition-colors italic">{goal.title}</h3>
+                    <h3 className="font-black dark:text-white text-slate-900 text-xl uppercase tracking-tighter group-hover:text-emerald-500 transition-colors italic">{goal.goal_name}</h3>
                     {goal.deadline && (
                       <p className="text-[10px] font-bold text-slate-500 dark:text-gray-500 uppercase tracking-widest flex items-center gap-2 transition-colors">
                         <Calendar className="w-3 h-3" />
